@@ -1,13 +1,17 @@
 var express = require('express');
 var app = express();
-
+var mongoose = require("mongoose");
 
 const path = require('path');
 const PORT = process.env.PORT || 5000
-var mongoose = require("mongoose");
-mongoose.Promise = global.Promise;mongoose.connect("mongodb://pujac70:raipur$77@ds233452.mlab.com:33452/subscription-datastore");
 
-var keysSchema = new Schema ({
+var MONGOLAB_URI = "mongodb://test:test123@ds233452.mlab.com:33452/subscription-datastore";
+mongoose.connect(MONGOLAB_URI, function (error) {
+    if (error) console.error(error);
+    else console.log('mongo connected');
+});
+
+var keysSchema = new mongoose.Schema ({
 	p256dh: String,
 	auth: String
 })
@@ -31,9 +35,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
-
-
-
 
 app.post('/api/save-subscription/', function (req, res) {
   console.log('Inside save subscription');
