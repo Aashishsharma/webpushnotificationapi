@@ -22,6 +22,8 @@ app.use(bodyParser.json());
 
 
 app.post('/api/save-subscription/', function (req, res) {
+
+ res.header("Access-Control-Allow-Origin", "*");
   console.log('Inside save subscription');
 
 MongoClient.connect(MONGOLAB_URI, function(err, db){
