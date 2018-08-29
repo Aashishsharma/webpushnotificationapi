@@ -28,9 +28,8 @@ MongoClient.connect(MONGOLAB_URI, function(err, db){
 	if(err){
 		console.log(err);
 	}
-	console.log(db);
 	const myAwesomeDB = db.db('subscription-datastore');
-	var query = {eid : "1234567"};
+	/*var query = {eid : "1234567"};
 	var cursor = myAwesomeDB.collection('Subscription').find(query);
 	cursor.each(function(err, doc){
 		if(doc){
@@ -38,7 +37,14 @@ MongoClient.connect(MONGOLAB_URI, function(err, db){
 		console.log("data found");
 		}
 		
-	});
+	});*/
+
+	console.log(req.body);
+	myAwesomeDB.collection('Subscription').insertOne(req.body, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
 });
   res.send(JSON.stringify({ data: { success: true } }));
 });
